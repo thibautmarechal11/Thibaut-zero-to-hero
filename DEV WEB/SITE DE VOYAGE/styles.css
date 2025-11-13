@@ -16,6 +16,11 @@ h2{
     color: #444;
     font-size: 55px;
 }
+h3{
+    font-size: 30px;
+    color: #444;
+
+}
 h4{
     font-size: 24px;
     margin-bottom: 10px;
@@ -174,4 +179,72 @@ article p{
 .button-2:hover{
     background: #02b8dd;
     transition: background 0.2s ease-in-out;
+}
+
+/*Contact Section */
+
+#contact{
+    padding: 60px 0;
+    text-align: center;
+}
+#contact h3{
+    width: 400px;
+    text-transform: uppercase;
+    margin: 0 auto 20px auto;   
+    border-bottom:1px solid #ddd;
+    padding-bottom: 20px;
+}
+form{
+    margin: 60px 0 20px 0;
+}
+label{
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 10px;
+    color: #777;
+}
+input[type ="text"]{
+    padding: 10px;
+    font-size: 20px;
+    margin-right: 20px;
+    border: 2px solid #ddd;
+    border-radius: 3px;
+}
+.button-3{
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 11px;
+    background-color: #02b8dd;
+    border-style: none;
+    border-radius: 3px;
+
+}
+
+.button-3:hover{
+    color: #fff;
+    background-color: #444;
+    transition: background 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+}
+
+/*Footer */
+footer{
+    height: 260px;
+    background: #444;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    
+}
+footer h1{
+    color: #fff;
+    
+    padding-top: 80px;
+    
+}
+footer p{
+    font-weight: bold;
+    padding-top: 30px;
+    color: #777;
 }
