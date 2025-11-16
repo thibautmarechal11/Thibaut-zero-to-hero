@@ -1,9 +1,11 @@
-var name = "Thibaut";
-var age = 23;
+var monTableau = [1, 2, 3, 1, 100];
+var monChiffre = monTableau.length;
 
-var text1 = "Bonjour, j'ai "
-var text2 = " ans et je m'appelle "
-var text2Lenght = text2.length;
-var textFinal = text1 + age.toString() + text2 + name + ".";
-console.log(textFinal);
-console.log("La longueur de la chaîne de caractères 'text2' est de : " + text2Lenght + " caractères.");
+for (var i = 0; i < monTableau.length; i++) {
+    console.log(monTableau[i]);
+}
+
+console.log("Mon chiffre est : " + monChiffre);
+
+monTableau.push(200);
+console.log("Après push, mon tableau est : " + monTableau);
