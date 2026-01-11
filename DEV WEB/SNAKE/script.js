@@ -1,66 +1,111 @@
-window.onload = function() 
-{
+window.onload = function() {
     var canvasWidth = 900;
     var canvasHeight = 600;
     var blockSize = 30;
     var canvas, ctx;
-    var delay = 400;
+    var delay = 100;
     var snakee;
     var applee;
     var widthInBlocks = canvasWidth / blockSize;
     var heightInBlocks = canvasHeight / blockSize;
+    var score;  
+    var timeout;
 
     init();
 
-    function init() 
-    {
+    function init(){
 
         canvas = document.createElement("canvas");
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
-        canvas.style.border = "1px solid black";
+        canvas.style.border = "30px solid gray";
+        canvas.style.margin = "50px auto";
+        canvas.style.display = "block";
+        canvas.style.backgroundColor = "#ddd";
         document.body.appendChild(canvas);
         ctx = canvas.getContext("2d");
-        snakee = new Sanke([[6,4], [5,4], [4,4]], "down");
+        snakee = new Sanke([[6,4], [5,4], [4,4], [3,4], [2,4]], "down");
         applee = new Apple([10, 10]);
+        score = 0;
         refreshCanvas();
         
     }
 
     function refreshCanvas(){
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         snakee.advance();
-        if(snakee.checkCollision())
-        {
-            //game over
-        }
-        else
-        {
+        if(snakee.checkCollision()){
+            gameOver();
+        } else {
+            if(snakee.isEatingApple(applee)){
+                snakee.ateApple = true;
+                do{
+                    applee.setNewPosition();
+
+                } while(applee.isOnSnake(snakee));
+                score++;
+            }
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            drawScore();
             snakee.draw();
             applee.draw();
-            setTimeout(refreshCanvas, delay);
+            timeout = setTimeout(refreshCanvas, delay);
         }
+        
+    }
+    function gameOver(){
+        ctx.save();
+        ctx.font = "bold 70px sans-serif";
+        ctx.fillStyle = "#000";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 5;
+        var centerX = canvasWidth / 2;
+        var centerY = canvasHeight / 2;
+        ctx.strokeText("Game Over", centerX, centerY - 180);
+        ctx.fillText("Game Over", centerX, centerY - 180);
+        ctx.font = "bold 30px sans-serif";
+        ctx.strokeText("Appuyer sur Espace pour rejouer", centerX, centerY - 100);        
+        ctx.fillText("Appuyer sur Espace pour rejouer", centerX, centerY - 100) ;
+        ctx.restore();
+    }
+    
+    function restart(){
+        snakee = new Sanke([[6,4], [5,4], [4,4], [3,4], [2,4]], "down");
+        applee = new Apple([10, 10]);
+        score = 0;
+        clearTimeout(timeout);  
+        refreshCanvas();
     }
 
-    function drawBlock(ctx, position)
-    {
+    function drawScore(){
+        ctx.save();
+        ctx.font = "bold 200px sans-serif";
+        ctx.fillStyle = "gray";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        var centerX = canvasWidth / 2;
+        var centerY = canvasHeight / 2;
+        ctx.fillText( score.toString(), centerX, centerY );
+        ctx.restore();
+    }   
+
+    function drawBlock(ctx, position){
         var x = position[0] * blockSize; 
         var y = position[1] * blockSize;
         ctx.fillRect(x, y, blockSize, blockSize);
     }
     
     
-    function Sanke(body, direction)
-    {
+    function Sanke(body, direction){
         this.body = body;
         this.direction = direction;
-        this.draw = function()
-        {
+        this.ateApple = false;
+        this.draw = function(){
             ctx.save();
             ctx.fillStyle = "#ff0000";
-            for(var i=0; i < this.body.length; i++)
-            {
+            for(var i=0; i < this.body.length; i++){
                 drawBlock(ctx, this.body[i]);
             }
             ctx.restore();
@@ -68,6 +113,7 @@ window.onload = function()
         
         this.advance = function()
         {
+            
             var nextPosition = this.body[0].slice();
             switch(this.direction)
             {
@@ -86,8 +132,10 @@ window.onload = function()
                     
             }
             this.body.unshift(nextPosition);
-            this.body.pop();
-            
+            if(!this.ateApple)
+            this.body.pop();  
+            else
+            this.ateApple = false;          
         };
 
         this.setDirection = function(newDirection){
@@ -109,13 +157,13 @@ window.onload = function()
             {
                 this.direction = newDirection;
             }
+            
         };
 
         this.checkCollision = function()
         {
             var wallCollision = false;
             var snakeCollision = false;
-            var appleCollision = false;
             var head = this.body[0];
             var rest = this.body.slice(1);
             var snakeX = head[0];
@@ -126,12 +174,11 @@ window.onload = function()
             var maxY = heightInBlocks - 1;
             var isNotBetweenHorizontalWalls = snakeX < minX || snakeX > maxX;
             var isNotBetweenVerticalWalls = snakeY < minY || snakeY > maxY;
-            var AppleX = applee.position[0];
-            var AppleY = applee.position[1];
-
+            
             if(isNotBetweenHorizontalWalls || isNotBetweenVerticalWalls)
             {
                 wallCollision = true;
+                console.log("Wall Collision");
             }
             for(var i=0; i < rest.length; i++)
             {
@@ -140,13 +187,21 @@ window.onload = function()
                     snakeCollision = true;
                 }
             }
-            if(snakeX === AppleX && snakeY === AppleY)
-            {
-                appleCollision = true;
-            }
-            return(wallCollision || snakeCollision || appleCollision);
+            return wallCollision || snakeCollision;
         }
-
+        
+        this.isEatingApple = function(appleToEat)
+        {
+            var head = this.body[0];
+            if(head[0] === appleToEat.position[0] && head[1] === appleToEat.position[1])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     function Apple(position)
@@ -163,11 +218,31 @@ window.onload = function()
             ctx.fill();
             ctx.restore();
         }
+        this.setNewPosition = function()
+        {
+            var newX = Math.round(Math.random() * (widthInBlocks - 1));
+            var newY = Math.round(Math.random() * (heightInBlocks - 1));
+            this.position = [newX, newY];
+        }
+        this.isOnSnake = function(snakeToCheck)
+        {
+            var isOnSnake = false;
+            for(var i=0; i < snakeToCheck.body.length; i++)
+            {
+                if(this.position[0] === snakeToCheck.body[i][0] && this.position[1] === snakeToCheck.body[i][1])
+                {
+                    isOnSnake = true;
+                }
+            }
+            return isOnSnake;
+        }
+        
     }
 
     document.onkeydown = function handleKeyDown(e)
     {
         var key = e.keyCode;
+        
         var newDirection;
         switch(key)
         {
@@ -183,6 +258,9 @@ window.onload = function()
             case 40:
                 newDirection = "down";
                 break;
+            case 32:
+                restart();
+                return;
             default:
                 return;
         }
