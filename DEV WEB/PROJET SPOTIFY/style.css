@@ -1,0 +1,52 @@
+.container{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    grid-template-rows: 60px 1fr 90px; /* TopBar, Main (flexible), PlayerBar */
+    grid-template-areas: 
+    "top"
+    "main"
+    "footer";
+    background-color: black;
+}
+
+.TopBar {
+    display: flex;
+    grid-area: top;
+    height: 60px;
+    background-color: aqua;
+    justify-content: space-between;
+}
+.Library{
+    width: 0px;
+    background-color: green;
+}
+.MainContent{
+    grid-area: main;
+    background-color: red;
+}
+.Preview{
+    width: 0px;
+    background-color: yellow;
+}
+.PlayerBar{
+    grid-area: footer;
+    height: 90px;
+    background-color: blue;
+}
+
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: 280px 1fr; 
+        grid-template-rows: 60px 1fr 90px;
+        grid-template-areas: 
+            "top top"
+            "sidebar main"
+            "footer  footer";
+    }
+
+    .Library {
+        grid-area: sidebar;
+        width: 100%; /* Elle n'est plus à 0px ! */
+    }
+}
