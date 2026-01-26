@@ -16,6 +16,7 @@
     height: 60px;
     background-color: aqua;
     justify-content: space-between;
+    align-items: center;
 }
 .Library{
     width: 0px;
@@ -48,5 +49,38 @@
     .Library {
         grid-area: sidebar;
         width: 100%; /* Elle n'est plus à 0px ! */
+        background-color: #121212;
+         display: flex;
+         flex-direction: column;
+         overflow: hidden;
     }
+    .libraryheader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+    .playlist-list{
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+    .playlist-list::-webkit-scrollbar {
+        width: 8px;
+    }
+    .playlist-list::-webkit-scrollbar-thumb {
+        background-color: #555;
+        border-radius: 4px;
+    }
+    .playlist-item{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px;
+        cursor: pointer;
+    }
+    .playlist-item p{
+        color: white;
+        font-size: 15px;
+    }
+
 }
