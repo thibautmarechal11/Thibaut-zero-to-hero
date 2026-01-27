@@ -14,9 +14,17 @@
     display: flex;
     grid-area: top;
     height: 60px;
-    background-color: aqua;
+    background-color: #121212;
     justify-content: space-between;
     align-items: center;
+}
+#search-input{
+    border-radius: 500px;
+    padding: 8px 16px;
+}
+.topbar-right, .topbar-center, .topbar-left{
+    display:flex;
+    gap: 20px;
 }
 .Library{
     width: 0px;
@@ -24,7 +32,9 @@
 }
 .MainContent{
     grid-area: main;
-    background-color: red;
+    background: linear-gradient(to bottom, #1f1f1f, #121212);
+    padding-top: 20px;
+    overflow-y: auto;
 }
 .Preview{
     width: 0px;
@@ -33,8 +43,59 @@
 .PlayerBar{
     grid-area: footer;
     height: 90px;
-    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #181818;
 }
+.player-left{
+    display: flex;
+    gap: 20px;
+
+}
+.player-info h4{
+    color: white;
+    margin: 0;
+}
+.player-info p{
+    color: #b3b3b3;
+    margin: 0;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 24px;
+    padding: 20px;
+}
+.card {
+    background-color: #181818;
+    padding: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+.card img {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.card h3 {
+    color: white;
+    font-size: 16px;
+    margin: 0 0 8px 8px 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.card p {
+    color: #b3b3b3;
+    font-size: 14px;
+    margin: 0;
+}
+.card:hover {
+    background-color: #282828;
+}
+
+
 
 @media (min-width: 768px) {
     .container {
@@ -82,5 +143,6 @@
         color: white;
         font-size: 15px;
     }
+
 
 }
