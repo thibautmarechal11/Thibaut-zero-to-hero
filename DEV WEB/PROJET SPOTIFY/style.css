@@ -53,6 +53,36 @@
     gap: 20px;
 
 }
+.player-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.player-controls{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.backward-button, .forward-button, .play-button, .repeat-button, .shuffle-button, .volume-button{
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.play-button{
+    font-size: 30px;
+}
+.player-right{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    width: 150px;
+}
+.volume-bar{
+    width: 100%;
+}
 .player-info h4{
     color: white;
     margin: 0;
