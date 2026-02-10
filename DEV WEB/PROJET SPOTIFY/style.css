@@ -176,3 +176,33 @@
 
 
 }
+
+/* Uniquement sur les écrans larges (PC) */
+@media (min-width: 1200px) {
+    
+    /* 1. On modifie la grille principale */
+    .container {
+        /* On veut 3 colonnes : 
+           - La gauche fixe (280px)
+           - Le milieu qui prend le reste (1fr)
+           - La droite fixe (disons 280px aussi) */
+        grid-template-columns: 280px 1fr 280px; 
+        
+        /* On dessine la nouvelle carte :
+           La Sidebar est à gauche, le Main au milieu, la Preview à droite */
+        grid-template-areas: 
+            "top     top   top"
+            "sidebar main   preview" 
+            "footer  footer footer";
+    }
+
+    /* 2. On fait apparaître la zone fantôme */
+    .Preview {
+        /* Elle doit s'afficher (contrairement au width: 0px d'avant) */
+        display: block; 
+        grid-area: preview ; /* Le nom que tu as donné dans la grille juste au-dessus */
+        width: 100%;
+        background-color: #000000; /* Juste pour voir si ça marche */
+        border-left: 1px solid #282828;
+    }
+}
