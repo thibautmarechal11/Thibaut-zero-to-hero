@@ -25,7 +25,18 @@ const currentSong = new Audio(songs[currentSongIndex].file); // On crée un obje
 const playButton = document.querySelector('.play-button');
 const forwardButton = document.querySelector('.forward-button');
 const backwardButton = document.querySelector('.backward-button');
+const currentCoverAlbum = document.getElementById('current-cover-album');
+const currentSongTitle = document.getElementById('current-song-title');
+const currentSongArtist = document.getElementById('current-song-artist');
+const progressBar = document.querySelector('.progress-bar');
 
+function updatePlayerInfo() {
+    currentCoverAlbum.src = songs[currentSongIndex].image; // Met à jour l'image de l'album
+    currentSongTitle.textContent = songs[currentSongIndex].title; // Met à jour le titre de la chanson
+    currentSongArtist.textContent = songs[currentSongIndex].artist; // Met à jour le nom de l'artiste
+}
+
+updatePlayerInfo(); // Appel initial pour afficher les infos de la première chanson 
 // 2. On ajoute un "Écouteur d'événement" (Event Listener)
 // Il attend qu'on clique ('click') sur le bouton pour lancer la fonction
 playButton.addEventListener('click', function() {
@@ -52,6 +63,7 @@ forwardButton.addEventListener('click', function() {
         currentSongIndex = 0; // Revenir à la première chanson si on dépasse la liste
     }
     console.log(currentSongIndex);
+    updatePlayerInfo(); // Met à jour les infos de la chanson affichées
     currentSong.src = songs[currentSongIndex].file; // Met à jour la source de la chanson
     currentSong.play(); // Joue la nouvelle chanson
     // Ici, vous pouvez ajouter la logique pour passer à la chanson suivante
@@ -64,6 +76,7 @@ backwardButton.addEventListener('click', function() {
         currentSongIndex = songs.length - 1; // Revenir à la dernière chanson si on dépasse la liste
     }
     console.log(currentSongIndex);
+    updatePlayerInfo(); // Met à jour les infos de la chanson affichées 
     currentSong.src = songs[currentSongIndex].file; // Met à jour la source de la chanson
     currentSong.play(); // Joue la nouvelle chanson
 });
