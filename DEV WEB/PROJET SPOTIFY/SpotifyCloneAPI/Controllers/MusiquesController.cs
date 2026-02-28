@@ -14,39 +14,39 @@ namespace SpotifyCloneAPI.Controllers
         List<Musique> musiqueList = new List<Musique>();
         musiqueList.Add(new Musique
         {
-            Id = 1,
-            Titre = "Shape of You",
-            Artiste = "Ed Sheeran",
-            Album = "Divide",
-            Duree = 233,
-            Link = "https://www.youtube.com/watch?v=JGwWNGJdvx8"
+            id = 1,
+            title = "Shape of You",
+            artist = "Ed Sheeran",
+            image = "Divide",
+            duree = 233,
+            file = "songs/Ed Sheeran – Shape of You (Lyrics).mp3"
         });
         musiqueList.Add(new Musique
         {
-            Id = 2,
-            Titre = "Blinding Lights",
-            Artiste = "The Weeknd",
-            Album = "After Hours",
-            Duree = 200,
-            Link = "https://www.youtube.com/watch?v=4NRXx6U8ABQ"
+            id = 2,
+            title = "Blinding Lights",
+            artist = "The Weeknd",
+            image = "After Hours",
+            duree = 200,
+            file = "songs/The Weeknd - Blinding Lights (Lyrics).mp3"
         });
         musiqueList.Add(new Musique
         {
-            Id = 3,
-            Titre = "Levitating",
-            Artiste = "Dua Lipa",
-            Album = "Future Nostalgia",
-            Duree = 203,
-            Link = "https://www.youtube.com/watch?v=TUVcZfQe-Kw"
+            id = 3,
+            title = "Levitating",
+            artist = "Dua Lipa",
+            image = "Future Nostalgia",
+            duree = 203,
+            file = "songs/Dua Lipa - Levitating (Lyrics).mp3"
         });
         musiqueList.Add(new Musique
         {
-            Id = 4,
-            Titre = "Bad Guy",
-            Artiste = "Billie Eilish",
-            Album = "When We All Fall Asleep, Where Do We Go?",
-            Duree = 194,
-            Link = "https://www.youtube.com/watch?v=DyDfgMOUjCI"
+            id = 4,
+            title = "Bad Guy",
+            artist = "Billie Eilish",
+            image = "When We All Fall Asleep, Where Do We Go?",
+            duree = 194,
+            file = "songs/Billie Eilish - bad guy (Lyrics).mp3"
         });
         return musiqueList;
         // C'est ici qu'on va créer et renvoyer notre liste de musiques

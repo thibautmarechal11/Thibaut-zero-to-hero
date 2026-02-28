@@ -1,25 +1,16 @@
-const songs = [
-    {
-        title:"Burn The Track",
-        artist:"Alex Grohl",
-        file:"songs\\alexgrohl-burn-the-track-inspiring-rock-trailer-478796.mp3",
-        image:"null",
-    },
-    {
-        title:"Epic",
-        artist:"Korne V",
-        file:"songs\\kornevmusic-epic-478847.mp3",
-        image:"null",
-    },
-    {
-        title:"Inspiring Cinematic",
-        artist:"Tune Tank",
-        file:"songs\\tunetank-inspiring-cinematic-music-409347.mp3",
-        image:"null",
-    }
-]; 
-var currentSongIndex = 0; // On commence avec la première chanson de la liste
-const currentSong = new Audio(songs[currentSongIndex].file); // On crée un objet Audio pour la première chanson
+let songs = [];
+// On va chercher les musiques sur notre API
+fetch('http://localhost:5031/api/musiques')
+    .then(reponse => reponse.json()) // On transforme la réponse du serveur en format JSON (lisible par JS)
+    .then(donnees => {
+        songs = donnees; // On remplit notre liste vide avec les musiques de l'API
+        console.log("Musiques chargées depuis l'API :", songs);
+        
+        // On met à jour l'affichage maintenant qu'on a les données
+        updatePlayerInfo();
+    }); 
+let currentSongIndex = 0; // On commence avec la première chanson de la liste
+let currentSong = new Audio(); // On crée un objet Audio pour la première chanson
 
 // 1. On récupère le bouton Play dans le HTML grâce à sa classe
 const playButton = document.querySelector('.play-button');
@@ -34,10 +25,9 @@ function updatePlayerInfo() {
     currentCoverAlbum.src = songs[currentSongIndex].image; // Met à jour l'image de l'album
     currentSongTitle.textContent = songs[currentSongIndex].title; // Met à jour le titre de la chanson
     currentSongArtist.textContent = songs[currentSongIndex].artist; // Met à jour le nom de l'artiste
+    currentSong.src = songs[currentSongIndex].file; // Met à jour la source de la chanson
 }
 
-updatePlayerInfo(); // Appel initial pour afficher les infos de la première chanson 
-// 2. On ajoute un "Écouteur d'événement" (Event Listener)
 // Il attend qu'on clique ('click') sur le bouton pour lancer la fonction
 playButton.addEventListener('click', function() {
     
