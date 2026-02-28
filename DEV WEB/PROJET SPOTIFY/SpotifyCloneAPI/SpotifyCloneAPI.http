@@ -1,0 +1,6 @@
+@SpotifyCloneAPI_HostAddress = http://localhost:5031
+
+GET {{SpotifyCloneAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
